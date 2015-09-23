@@ -1,0 +1,8 @@
+build/
+gradle/
+local.properties
+~*
+.gradle/
+.idea/
+android-robohash.iml
+*.iml
