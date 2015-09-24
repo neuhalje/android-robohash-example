@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/menu_speed_test" android:title="@string/test_speed"/>
+    <item android:id="@+id/menu_speed_test_asnc" android:title="@string/test_speed_background"/>
+    <item android:id="@+id/menu_speed_test_sync" android:title="@string/test_speed"/>
 </menu>
