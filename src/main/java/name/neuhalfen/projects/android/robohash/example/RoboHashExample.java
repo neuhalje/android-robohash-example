@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class RoboHashExample extends Activity {
-    private ImageView robot;
+    private ImageView robot16dp,robot24dp,robot48dp,robot96dp,robotFull;
 
     private RoboHash robots;
 
@@ -33,7 +33,11 @@ public class RoboHashExample extends Activity {
 
         robots = new RoboHash(this);
 
-        robot = (ImageView) findViewById(R.id.robot);
+        robot16dp = (ImageView) findViewById(R.id.robot_16dp);
+        robot24dp = (ImageView) findViewById(R.id.robot_24dp);
+        robot48dp = (ImageView) findViewById(R.id.robot_48dp);
+        robot96dp = (ImageView) findViewById(R.id.robot_96dp);
+        robotFull = (ImageView) findViewById(R.id.robot_full);
         ((Button) findViewById(R.id.new_robot)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,12 +45,20 @@ public class RoboHashExample extends Activity {
                     UUID uuid = UUID.randomUUID();
                     Handle handle = robots.calculateHandleFromUUID(uuid);
                     Bitmap bitmap = robots.imageForHandle(handle);
-                    robot.setImageBitmap(bitmap);
+                    displayRobot(bitmap);
                 } catch (IOException e) {
                     Toast.makeText(RoboHashExample.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
+    }
+
+    private void displayRobot(Bitmap bitmap) {
+        robot16dp.setImageBitmap(bitmap);
+        robot24dp.setImageBitmap(bitmap);
+        robot48dp.setImageBitmap(bitmap);
+        robot96dp.setImageBitmap(bitmap);
+        robotFull.setImageBitmap(bitmap);
     }
 
     @Override
@@ -124,7 +136,7 @@ public class RoboHashExample extends Activity {
                 Bitmap bitmap = robots.imageForHandle(handle);
 
                 long startRender = System.currentTimeMillis();
-                RoboHashExample.this.robot.setImageBitmap(bitmap);
+                displayRobot(bitmap);
                 sumRenderingIntoImage += (System.currentTimeMillis() - startRender);
             } catch (IOException e) {
                 //

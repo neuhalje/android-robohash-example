@@ -1,15 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+        >
 
-    <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="random robot" android:id="@+id/new_robot"/>
+    <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="random robot"
+            android:id="@+id/new_robot"/>
+
     <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_below="@+id/new_robot"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:maxHeight="16dp"
+            android:maxWidth="16dp"
+            android:height="16dp"
+            android:width="16dp"
             android:layout_gravity="center_horizontal"
-            android:id="@+id/robot"/>
-</LinearLayout>
+            android:id="@+id/robot_16dp"
+            android:layout_margin="8dp"/>
+    <TextView android:layout_below="@+id/robot_96dp"
+              android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="16dp"
+              android:id="@+id/text_16dp" android:layout_margin="8dp"/>
+
+    <ImageView
+            android:layout_below="@+id/new_robot"
+            android:layout_toRightOf="@id/robot_16dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:maxHeight="24dp"
+            android:maxWidth="24dp"
+            android:height="24dp"
+            android:width="24dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/robot_24dp" android:layout_margin="8dp"/>
+    <TextView android:layout_below="@+id/robot_96dp"
+              android:layout_alignLeft="@id/robot_24dp"
+              android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="24dp"
+              android:id="@+id/text_24dp" android:layout_margin="8dp"/>
+
+
+    <ImageView
+            android:layout_below="@+id/new_robot"
+            android:layout_toRightOf="@id/robot_24dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:maxHeight="48dp"
+            android:maxWidth="48dp"
+            android:height="48dp"
+            android:width="48dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/robot_48dp"
+            android:layout_margin="8dp"/>
+    <TextView android:layout_below="@+id/robot_96dp"
+              android:layout_alignLeft="@id/robot_48dp"
+              android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="48dp"
+              android:id="@+id/text_48dp" android:layout_margin="8dp"/>
+
+
+    <ImageView
+            android:layout_below="@+id/new_robot"
+            android:layout_toRightOf="@id/robot_48dp"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:maxHeight="96dp"
+            android:maxWidth="96dp"
+            android:height="96dp"
+            android:width="96dp"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/robot_96dp"
+            android:layout_margin="8dp"/>
+    <TextView android:layout_below="@+id/robot_96dp"
+              android:layout_alignLeft="@id/robot_96dp"
+              android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="96dp"
+              android:id="@+id/text_96dp" android:layout_margin="8dp"/>
+    <ImageView
+            android:layout_below="@id/text_48dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/robot_full" android:layout_margin="8dp"/>
+</RelativeLayout>
 
