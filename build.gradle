@@ -7,6 +7,8 @@ buildscript {
     }
 }
 repositories {
+    //mavenLocal()
+    jcenter()
     mavenCentral()
 }
 apply plugin: 'android'
@@ -36,5 +38,10 @@ android {
 }
 
 dependencies {
-    compile project("..:android-robohash")
+    // To use this app to debug robohash:
+    // 1) check out android-robohash in../android-robohash
+    // 2) copy settings.gradle.tpl to settings.gradle
+    // 3) uncomment: compile project("..:android-robohash")
+    // 4) comment: compile(group: 'name.neuhalfen.projects.android', name: 'android-robohash', version: '1.0.1', ext: 'aar')
+    compile(group: 'name.neuhalfen.projects.android', name: 'android-robohash', version: '1.0.2', ext: 'aar')
 }
