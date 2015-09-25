@@ -1,5 +1,6 @@
 Example for android-robohash
 ==============================
+[![Build Status](https://travis-ci.org/neuhalje/android-robohash-example.svg?branch=master)](https://travis-ci.org/neuhalje/android-robohash-example)
 
 This is an example application that shows the usage of the [`android-robohash`](https://github.com/neuhalje/android-robohash) library.
 
@@ -7,8 +8,13 @@ This is an example application that shows the usage of the [`android-robohash`](
 
 Installation
 ---------------
+Clone & `./gradlew installDebug`.
 
-Clone the repository besides `android-robohash`.
+### Alternatively link to AAR source project
+
+* Clone the repository besides `android-robohash`,
+* copy `settings.gradle.tpl`  to `settings.gradle`,
+* and modify the dependencies in `build.gradle` to `compile project("..:android-robohash")`.
 
 
 LICENSE
