@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -46,6 +47,15 @@ public class RoboHashExample extends Activity {
                     Handle handle = robots.calculateHandleFromUUID(uuid);
                     Bitmap bitmap = robots.imageForHandle(handle);
                     displayRobot(bitmap);
+
+                    final String robotInMediaStoreUrl = MediaStore.Images.Media.insertImage(RoboHashExample.this.getContentResolver(), bitmap, "Robot " +
+                            uuid.toString(), "Fancy robot #" + handle.pack());
+                    if (null == robotInMediaStoreUrl) {
+                        new AlertDialog.Builder(RoboHashExample.this).setMessage("Failed to insert robot in Media Store").create().show();
+
+                    }else{
+                        new AlertDialog.Builder(RoboHashExample.this).setMessage("Robot stored in Media Store under URL " + robotInMediaStoreUrl).create().show();
+                    }
                 } catch (IOException e) {
                     Toast.makeText(RoboHashExample.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
