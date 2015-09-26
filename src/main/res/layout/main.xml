@@ -5,8 +5,39 @@
                 android:layout_height="fill_parent"
         >
 
-    <Button android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="random robot"
-            android:id="@+id/new_robot"/>
+
+    <Button android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="random robot"
+            android:id="@+id/new_random_robot"
+            />
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Robot handle:"
+              android:id="@+id/new_robot_text"
+              android:layout_alignBaseline="@+id/new_robot"
+              android:layout_alignParentStart="true"
+              android:layout_below="@+id/new_random_robot"
+
+            />
+
+    <EditText android:layout_width="200sp"
+              android:layout_height="wrap_content"
+              android:inputType="number"
+              android:text="24632863247"
+              android:id="@+id/new_robot_id"
+              android:layout_toEndOf="@+id/new_robot_text"
+              android:layout_alignBaseline="@+id/new_robot"
+              android:layout_below="@+id/new_random_robot"
+              android:gravity="end"/>
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="get robot"
+            android:id="@+id/new_robot"
+            android:layout_below="@+id/new_random_robot"
+            android:layout_toEndOf="@+id/new_robot_id"
+            />
+
 
     <ImageView
             android:layout_below="@+id/new_robot"

@@ -3,4 +3,5 @@
     <string name="app_name">RoboHashExample</string>
     <string name="test_speed">Test lots of loading + rendering in the foreground (danger: ANR!)</string>
     <string name="test_speed_background">Test lots of loading in the background</string>
+    <string name="save_to_media">Save robot</string>
 </resources>

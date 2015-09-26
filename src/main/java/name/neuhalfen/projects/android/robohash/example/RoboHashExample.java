@@ -5,24 +5,35 @@ import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import name.neuhalfen.projects.android.robohash.RoboHash;
 import name.neuhalfen.projects.android.robohash.handle.Handle;
+import name.neuhalfen.projects.android.robohash.handle.HandleFactory;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.UUID;
 
 public class RoboHashExample extends Activity {
-    private ImageView robot16dp,robot24dp,robot48dp,robot96dp,robotFull;
+    private ImageView robot16dp, robot24dp, robot48dp, robot96dp, robotFull;
 
+    private EditText handleView;
     private RoboHash robots;
+
+    private Bitmap robot;
+
+    private Handle rootHandle;
 
     /**
      * Called when the activity is first created.
@@ -39,28 +50,41 @@ public class RoboHashExample extends Activity {
         robot48dp = (ImageView) findViewById(R.id.robot_48dp);
         robot96dp = (ImageView) findViewById(R.id.robot_96dp);
         robotFull = (ImageView) findViewById(R.id.robot_full);
-        ((Button) findViewById(R.id.new_robot)).setOnClickListener(new View.OnClickListener() {
+        handleView = (EditText) findViewById(R.id.new_robot_id);
+
+        ((Button) findViewById(R.id.new_random_robot)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
                     UUID uuid = UUID.randomUUID();
-                    Handle handle = robots.calculateHandleFromUUID(uuid);
-                    Bitmap bitmap = robots.imageForHandle(handle);
-                    displayRobot(bitmap);
+                    rootHandle = robots.calculateHandleFromUUID(uuid);
+                    robot = robots.imageForHandle(rootHandle);
+                    handleView.setText("" + rootHandle.pack());
+                    displayRobot(robot);
 
-                    final String robotInMediaStoreUrl = MediaStore.Images.Media.insertImage(RoboHashExample.this.getContentResolver(), bitmap, "Robot " +
-                            uuid.toString(), "Fancy robot #" + handle.pack());
-                    if (null == robotInMediaStoreUrl) {
-                        new AlertDialog.Builder(RoboHashExample.this).setMessage("Failed to insert robot in Media Store").create().show();
-
-                    }else{
-                        new AlertDialog.Builder(RoboHashExample.this).setMessage("Robot stored in Media Store under URL " + robotInMediaStoreUrl).create().show();
-                    }
                 } catch (IOException e) {
                     Toast.makeText(RoboHashExample.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+        ((Button) findViewById(R.id.new_robot)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    rootHandle = new HandleFactory().unpack(Long.valueOf(handleView.getText().toString()));
+                    robot = robots.imageForHandle(rootHandle);
+                    displayRobot(robot);
+                } catch (IOException e) {
+                    Toast.makeText(RoboHashExample.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                } catch (NumberFormatException e) {
+                    // ignore
+                }
+            }
+        });
+
+
+        ((Button) findViewById(R.id.new_random_robot)).callOnClick();
     }
 
     private void displayRobot(Bitmap bitmap) {
@@ -86,8 +110,40 @@ public class RoboHashExample extends Activity {
         } else if (item.getItemId() == R.id.menu_speed_test_sync) {
             testLoadingWithRenderingInTheUiThread();
             return true;
+        } else if (item.getItemId() == R.id.menu_save) {
+            saveRobot();
+            return true;
         } else
             return super.onOptionsItemSelected(item);
+    }
+
+    private void saveRobot() {
+        Handle handle = new HandleFactory().unpack(Long.valueOf(handleView.getText().toString()));
+
+        final String robotPath = savebitmap(robot, "" + rootHandle.pack()).getAbsolutePath();
+
+        new AlertDialog.Builder(RoboHashExample.this).setMessage("Robot saved as " + robotPath).create().show();
+        Log.i("RoboHash", "SAVED ROBOT #" + handle.pack() + ": " + robotPath);
+    }
+
+    private File savebitmap(Bitmap bitmap, String filenameWithoutExt) {
+        String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+        OutputStream outStream = null;
+
+        File file = new File(extStorageDirectory, filenameWithoutExt + ".png");
+        if (file.exists()) {
+            file.delete();
+        }
+        try {
+            outStream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return file;
+
     }
 
     private void testLoadingInTheBackground() {
