@@ -4,6 +4,8 @@ android:
     - build-tools-23.0.0
     - android-17
     - sys-img-armeabi-v7a-android-17
+    - extra-android-support
+    - extra-android-m2repository
 env:
   global:
    # install timeout in minutes (2 minutes by default)
