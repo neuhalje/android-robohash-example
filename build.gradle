@@ -34,6 +34,11 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
     }
 }
 
@@ -44,4 +49,8 @@ dependencies {
     // 3) uncomment: compile project("..:android-robohash")
     // 4) comment: compile(group: 'name.neuhalfen.projects.android', name: 'android-robohash', version: '1.0.4', ext: 'aar')
     compile(group: 'name.neuhalfen.projects.android', name: 'android-robohash', version: '1.0.4', ext: 'aar')
+
+    androidTestCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support.test:runner:0.3'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2'
 }
